@@ -3,24 +3,24 @@ import styles from "./ContactForm.module.scss";
 import PropTypes from "prop-types";
 
 const ContactForm = ({ addContact }) => {
-  const [name, setName] = useState("");
-  
+  const [formValue, setFormValue] = useState({
+    name: "",
+    number: "",
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.currentTarget;
-    if (name === "name") {
-      setName(value);
-    } else if (name === "number") {
-      setNumber(value);
-    }
+    setFormValue((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    const { name, number } = formValue;
     addContact(name, number);
-    setName("");
-    setNumber("");
+    setFormValue({ name: "", number: "" });
   };
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -32,7 +32,7 @@ const ContactForm = ({ addContact }) => {
         pattern="^[a-zA-Z]+(([' \-][a-zA-Z ])?[a-zA-Z]*)*$"
         title="Name may contain only letters, apostrophe, dash and spaces."
         required
-        value={name}
+        value={formValue.name}
         onChange={handleChange}
       />
       <label htmlFor="number">Phone number</label>
@@ -43,7 +43,7 @@ const ContactForm = ({ addContact }) => {
         required
         title="Phone number must be digits and can contain spaces, dashes,
         parentheses and can start with +"
-        value={number}
+        value={formValue.number}
         onChange={handleChange}
       />
       <button type="submit">Add contact</button>
@@ -54,4 +54,3 @@ ContactForm.propTypes = {
   addContact: PropTypes.func,
 };
 export default ContactForm;
-
