@@ -8,7 +8,7 @@ export default class ContactForm extends Component {
   };
 
   handleChange = (e) => {
-    const { name, value } = e.currentTarget;
+    const { name, value } = e.currentTarget
     this.setState({ [name]: value });
   };
 
@@ -39,11 +39,9 @@ export default class ContactForm extends Component {
           id="number"
           type="number"
           name="number"
-          
           required
           title="Phone number must be digits and can contain spaces, dashes,
         parentheses and can start with +"
-          required
           value={number}
           onChange={this.handleChange}
         />
